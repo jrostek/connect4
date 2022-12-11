@@ -1,6 +1,6 @@
 """API functions for running the game."""
 from fastapi import FastAPI
-from gameplay import play_game
+from src.gameplay import play_game
 
 app = FastAPI()
 

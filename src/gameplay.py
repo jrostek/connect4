@@ -7,7 +7,7 @@ play_game - runs the gameplay loop.
 import numpy as np
 import numpy.typing as npt
 
-from display import display_board
+from src.display import display_board
 
 
 def place_piece(board: npt.NDArray,
@@ -113,6 +113,3 @@ def play_game() -> None:
             continue
 
         player_num = switch_player(player_num)
-
-
-play_game()
