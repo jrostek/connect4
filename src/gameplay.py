@@ -17,21 +17,25 @@ def place_piece(board: npt.NDArray,
                 n_rows: int,
                 n_cols: int) -> bool:
     """Assign a piece its place on the board."""
-    try:  # piece placement is within board
-        if board[row, col] == 0:
+    try:
+        if row < 0 or col < 0:  # negative indices
+            raise ValueError("Please choose non-negative indices.")
+
+        if board[row, col] == 0:  # the space is empty
             board[row, col] = player
-            return True
-        else:
-            print("---There's already a piece in location (" +
+        else:  # the space is taken
+            raise ValueError("There's already a piece in location " +
                   str((row + 1, col + 1)) +
-                  "), try again.---")
-            return False
+                  ", try again.")
     except IndexError:
-        print("---(" + str((row + 1, col + 1)) +
-              "): Placement outside of the board. Board size is " +
+        print("Bad placement:", str((row + 1, col + 1)),
+              "is outside of board dimensions (" +
               str(n_rows) + " rows and " +
-              str(n_cols) + " columns.---")
-        return False
+              str(n_cols) + " columns).")
+        raise
+    except ValueError as error:
+        print("Bad placement:", error)
+        raise
 
 
 def four_in_any_row(board: npt.NDArray) -> bool:
@@ -106,10 +110,11 @@ def play_game() -> None:
         try:
             x, y = map(int, coords.split(","))
         except (TypeError, ValueError) as error:
-            print(error)
-            print("---Incorrectly input placement, try again.---")
+            print("Incorrectly input placement:", error)
             continue
-        if not place_piece(board, x - 1, y - 1, player_num, n_rows, n_cols):
+        try:
+            place_piece(board, x - 1, y - 1, player_num, n_rows, n_cols)
+        except (IndexError, ValueError):
             continue
 
         player_num = switch_player(player_num)
