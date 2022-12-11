@@ -8,3 +8,4 @@ fireworks (a pretty design, that is) later. To try it out, simply write
 ```commandline
 uvicorn main:app
 ```
+in your terminal opened within the project's root directory.
