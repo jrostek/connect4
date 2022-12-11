@@ -6,6 +6,6 @@ A simple game you already know, for two players - get four
 For now, you can only play the boring, console version. I plan to add 
 fireworks (a pretty design, that is) later. To try it out, simply write
 ```commandline
-uvicorn main:app
+uvicorn src.main:app
 ```
 in your terminal opened within the project's root directory.
