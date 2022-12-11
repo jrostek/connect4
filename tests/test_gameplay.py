@@ -19,10 +19,9 @@ class TestPiecePlacement(unittest.TestCase):
         :return:
         """
         row, col, plr = 2, 2, 1
-        res = gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
+        gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
         self.test_board[row, col] = 1
         self.assertIsNone(nptest.assert_array_equal(self.board, self.test_board))
-        self.assertTrue(res)
 
     def test_piece_on_taken_place(self):
         """
@@ -33,10 +32,9 @@ class TestPiecePlacement(unittest.TestCase):
         row, col, plr = 2, 2, 1
         gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
         board_after_1st_piece_placed = self.board.copy()
-        with self.assertRaises(IndexError):
-            res = gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
+        with self.assertRaises(ValueError):
+            gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
         self.assertIsNone(nptest.assert_array_equal(self.board, board_after_1st_piece_placed))
-        self.assertFalse(res)
 
     def test_outside_board(self):
         """
@@ -46,9 +44,8 @@ class TestPiecePlacement(unittest.TestCase):
         """
         row, col, plr = self.n_rows, 2, 1
         with self.assertRaises(IndexError):
-            res = gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
+            gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
         self.assertIsNone(nptest.assert_array_equal(self.board, self.test_board))
-        self.assertFalse(res)
 
     def test_negative_indices(self):
         """
@@ -57,10 +54,9 @@ class TestPiecePlacement(unittest.TestCase):
         :return:
         """
         row, col, plr = -1, -3, 1
-        with self.assertRaises(IndexError):
-            res = gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
+        with self.assertRaises(ValueError):
+            gp.place_piece(self.board, row, col, plr, self.n_rows, self.n_cols)
         self.assertIsNone(nptest.assert_array_equal(self.board, self.test_board))
-        self.assertFalse(res)
 
 
 if __name__ == '__main__':
