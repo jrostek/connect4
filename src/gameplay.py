@@ -15,7 +15,7 @@ def place_piece(board: npt.NDArray,
                 col: int,
                 player: int,
                 n_rows: int,
-                n_cols: int) -> bool:
+                n_cols: int) -> None:
     """Assign a piece its place on the board."""
     try:
         if row < 0 or col < 0:  # negative indices
